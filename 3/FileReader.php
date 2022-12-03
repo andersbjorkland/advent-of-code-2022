@@ -55,6 +55,7 @@ class FileReader
             }
 
             $rucksacks[] = [
+                'input' => $item,
                 'first' => $firstSection,
                 'second' => $secondSection,
                 'doubled' => $doubledChar,
