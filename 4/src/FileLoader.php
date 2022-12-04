@@ -7,6 +7,7 @@ namespace Aoc;
 class FileLoader
 {
     const DOUBLE_LINE_PARSER = 0;
+    const SECTIONS_PARSER = 1;
 
     public function __construct(
         private int $parser = self::DOUBLE_LINE_PARSER,
@@ -18,6 +19,7 @@ class FileLoader
 
         return match($this->parser) {
             self::DOUBLE_LINE_PARSER => $this->doubleLineParser($fileContents),
+            self::SECTIONS_PARSER => $this->sectionsParser($fileContents),
             default => $this->defaultParser($fileContents)
         };
     }
@@ -48,5 +50,28 @@ class FileLoader
         }, $content);
 
         return $content;
+    }
+
+    /**
+     * @param string $fileContents
+     * @return array|SectionPair[]
+     */
+    protected function sectionsParser(string $fileContents): array
+    {
+        $content = explode("\n", $fileContents);
+
+        $sectionPairs = [];
+        foreach ($content as $sections) {
+            $sectionPair = new SectionPair();
+            $elfSections = explode(',', $sections);
+            foreach ($elfSections as $rawSection) {
+                $parsedRawSection = explode('-', $rawSection);
+                $section = new Section((int)$parsedRawSection[0], (int)$parsedRawSection[1]);
+                $sectionPair->addSection($section);
+            }
+            $sectionPairs[] = $sectionPair;
+        }
+
+        return $sectionPairs;
     }
 }

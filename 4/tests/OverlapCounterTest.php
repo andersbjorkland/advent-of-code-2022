@@ -4,29 +4,15 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Aoc\FileLoader;
 use Aoc\Section;
 use Aoc\SectionPair;
 
-class FileLoaderTest extends \PHPUnit\Framework\TestCase
+class OverlapCounterTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDoubleLineSeparatedFile(): void
+    public function testOverlapCount(): void
     {
-        $fileLoader = new FileLoader();
-        $actual = $fileLoader->readFile(__DIR__ . '/testFile.txt');
-        $expected = [
-            ["aabbdd", "aabb", "aa"],
-            ["bbccdd", "bbcc", "bb"]
-        ];
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testSectionsParser(): void
-    {
-        $fileLoader = new FileLoader(FileLoader::SECTIONS_PARSER);
-        $actual = $fileLoader->readFile(__DIR__ . '/pairs.txt');
-        $expected = [
+        $overlapCounter = new \Aoc\OverlapCounter();
+        $sectionPairs = [
             (new SectionPair())
                 ->addSection(new Section(2, 4))
                 ->addSection(new Section(6,8)),
@@ -46,6 +32,9 @@ class FileLoaderTest extends \PHPUnit\Framework\TestCase
                 ->addSection(new Section(2, 6))
                 ->addSection(new Section(4, 8))
         ];
+
+        $expected = 2;
+        $actual = $overlapCounter->countOverlaps($sectionPairs);
 
         $this->assertEquals($expected, $actual);
     }
