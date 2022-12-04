@@ -9,7 +9,7 @@ use Aoc\SectionPair;
 
 class OverlapCounterTest extends \PHPUnit\Framework\TestCase
 {
-    public function testOverlapCount(): void
+    public function testContainsCount(): void
     {
         $overlapCounter = new \Aoc\OverlapCounter();
         $sectionPairs = [
@@ -34,8 +34,37 @@ class OverlapCounterTest extends \PHPUnit\Framework\TestCase
         ];
 
         $expected = 2;
-        $actual = $overlapCounter->countOverlaps($sectionPairs);
+        $actual = $overlapCounter->countContains($sectionPairs);
 
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testOverlapCount(): void
+    {
+        $overlapCounter = new \Aoc\OverlapCounter();
+        $sectionPairs = [
+            (new SectionPair())
+                ->addSection(new Section(2, 4))
+                ->addSection(new Section(6,8)),
+            (new SectionPair())
+                ->addSection(new Section(2, 3))
+                ->addSection(new Section(4,5)),
+            (new SectionPair())
+                ->addSection(new Section(5, 7))
+                ->addSection(new Section(7, 9)),
+            (new SectionPair())
+                ->addSection(new Section(2, 8))
+                ->addSection(new Section(3, 7)),
+            (new SectionPair())
+                ->addSection(new Section(6, 6))
+                ->addSection(new Section(4, 6)),
+            (new SectionPair())
+                ->addSection(new Section(2, 6))
+                ->addSection(new Section(4, 8))
+        ];
+
+        $expected = 4;
+        $actual = $overlapCounter->countOverlap($sectionPairs);
         $this->assertEquals($expected, $actual);
     }
 }

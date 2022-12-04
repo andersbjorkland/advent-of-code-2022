@@ -6,6 +6,8 @@ $fileLoader = new \Aoc\FileLoader(\Aoc\FileLoader::SECTIONS_PARSER);
 $sectionPairs = $fileLoader->readFile(__DIR__ . '/input.txt');
 
 $counter = new \Aoc\OverlapCounter();
-$count = $counter->countOverlaps($sectionPairs);
+$containsCount = $counter->countContains($sectionPairs);
+echo 'Contains Count: ' . $containsCount . PHP_EOL;
 
-echo 'Count: ' . $count . PHP_EOL;
+$overlapCount = $counter->countOverlap($sectionPairs);
+echo 'Overlap Count: ' . $overlapCount . PHP_EOL;

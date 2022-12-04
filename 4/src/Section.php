@@ -10,4 +10,9 @@ class Section
         readonly public int $min,
         readonly public int $max
     ){}
+
+    public function __toString(): string
+    {
+        return $this->min . '-' . $this->max;
+    }
 }
