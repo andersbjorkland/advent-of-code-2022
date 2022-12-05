@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Aoc;
 
+use Aoc\Parser\StackInstructionParser;
+
 class FileLoader
 {
     const DOUBLE_LINE_PARSER = 0;
+    const STACK_PARSER = 2;
 
     public function __construct(
         private int $parser = self::DOUBLE_LINE_PARSER,
@@ -18,6 +21,7 @@ class FileLoader
 
         return match($this->parser) {
             self::DOUBLE_LINE_PARSER => $this->doubleLineParser($fileContents),
+            self::STACK_PARSER => (new StackInstructionParser())->parse($fileContents),
             default => $this->defaultParser($fileContents)
         };
     }

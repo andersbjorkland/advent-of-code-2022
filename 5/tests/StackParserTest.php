@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Test;
 
+use Aoc\FileLoader;
+
 class StackParserTest extends \PHPUnit\Framework\TestCase
 {
     public function testParsesStackFromString(): void
@@ -20,12 +22,13 @@ class StackParserTest extends \PHPUnit\Framework\TestCase
         $stackParser = new \Aoc\Parser\StackParser();
         $actual = $stackParser->parse($data);
         $expected = [
-            ["N", "Z"],
-            ["D", "C", "M"],
+            ["Z", "N"],
+            ["M", "C", "D"],
             ["P"]
         ];
 
         $this->assertEquals($actual, $expected);
+
     }
 
 }

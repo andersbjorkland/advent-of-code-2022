@@ -33,6 +33,8 @@ class StackParser implements ParseInterface
 
         }
 
+        $stacks = array_map(fn ($stack) => array_reverse($stack), $stacks);
+
         return $stacks;
     }
 }

@@ -4,24 +4,21 @@ declare(strict_types=1);
 
 namespace Test;
 
-use Aoc\Parser\StackInstructionParser;
+use Aoc\StackMover;
+use PHPUnit\Framework\TestCase;
 
-class StackInstructionParserTest extends \PHPUnit\Framework\TestCase
+class StackMoverTest extends TestCase
 {
-    public function testParsesInstructionsAndStacks(): void
+    public function testHandleStacks(): void
     {
-        $data = file_get_contents(__DIR__ . '/input.txt');
-
-        $parser = new StackInstructionParser();
-
-        $actual = $parser->parse($data);
-        $expected = [
-            'stacks' => [
+        $stacks =
+            [
                 ["Z", "N"],
                 ["M", "C", "D"],
                 ["P"]
-            ],
-            'instructions' => [
+            ];
+        $instructions =
+            [
                 [
                     'from' => 2,
                     'to' => 1,
@@ -42,7 +39,14 @@ class StackInstructionParserTest extends \PHPUnit\Framework\TestCase
                     'to' => 2,
                     'amount' => 1
                 ]
-            ]
+            ];
+        $mover = new StackMover($stacks, $instructions);
+        $actual = $mover->handle();
+
+        $expected = [
+            ["C"],
+            ["M"],
+            ["P", "D", "N", "Z"]
         ];
 
         $this->assertEquals($expected, $actual);
