@@ -14,3 +14,7 @@ $stackChars = (new \Aoc\StackReader())->readStack($movedStacks);
 
 echo "Chars: " . $stackChars . PHP_EOL;
 
+$movedBy9001 = (new \Aoc\StackMover($stacks, $instructions))->handle(\Aoc\StackMover::STACK_MOVER_9001);
+$stacked9001Chars = (new \Aoc\StackReader())->readStack($movedBy9001);
+
+echo PHP_EOL . "Chars for 9001 stacker: " . $stacked9001Chars . PHP_EOL;

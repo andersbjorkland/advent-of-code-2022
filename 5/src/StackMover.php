@@ -6,12 +6,15 @@ namespace Aoc;
 
 class StackMover
 {
+    const STACK_MOVER_9000 = 0;
+    const STACK_MOVER_9001 = 1;
+    
     public function __construct(
         private array $stacks,
         private array $instructions
     ){}
 
-    public function handle(): array
+    public function handle($configuration = self::STACK_MOVER_9000): array
     {
         $stacks = $this->stacks;
         $instructions = $this->instructions;
@@ -25,9 +28,16 @@ class StackMover
             $toColumn = $stacks[$toColumnIndex];
             $items = [];
 
+            $moveStack = [];
             for($i = 0; $i < $amount; $i++) {
-                $toColumn[] = array_pop($fromColumn);
+                $moveStack[] = array_pop($fromColumn);
             }
+            
+            if ($configuration === self::STACK_MOVER_9001) {
+                $moveStack = array_reverse($moveStack);
+            }
+            
+            array_push($toColumn, ...$moveStack);
 
             $stacks[$fromColumnIndex] = $fromColumn;
             $stacks[$toColumnIndex] = $toColumn;
