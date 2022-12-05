@@ -6,12 +6,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Aoc\\": "src/"
+            "Aoc5\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Test\\": "tests/"
+            "Test5\\": "tests/"
         }
     },
     "authors": [

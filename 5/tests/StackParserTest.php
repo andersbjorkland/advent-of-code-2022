@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Test;
+namespace Test5;
 
-use Aoc\FileLoader;
+use Aoc5\FileLoader;
 
 class StackParserTest extends \PHPUnit\Framework\TestCase
 {
@@ -19,7 +19,7 @@ class StackParserTest extends \PHPUnit\Framework\TestCase
                 . "[Z] [M] [P]" . PHP_EOL
                 . "1   2   3 ";
 
-        $stackParser = new \Aoc\Parser\StackParser();
+        $stackParser = new \Aoc5\Parser\StackParser();
         $actual = $stackParser->parse($data);
         $expected = [
             ["Z", "N"],

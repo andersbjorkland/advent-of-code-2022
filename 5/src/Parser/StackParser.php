@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Aoc\Parser;
+namespace Aoc5\Parser;
 
 class StackParser implements ParseInterface
 {

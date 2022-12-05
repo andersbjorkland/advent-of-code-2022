@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Test;
+namespace Test5;
 
-use Aoc\Parser\StackInstructionParser;
+use Aoc5\Parser\StackInstructionParser;
 
 class StackInstructionParserTest extends \PHPUnit\Framework\TestCase
 {

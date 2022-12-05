@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Test;
+namespace Test5;
 
-use Aoc\StackMover;
+use Aoc5\StackMover;
 use PHPUnit\Framework\TestCase;
 
 class StackMoverTest extends TestCase

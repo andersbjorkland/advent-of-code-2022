@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Aoc;
+namespace Aoc5;
 
-use Aoc\Parser\StackInstructionParser;
+use Aoc5\Parser\StackInstructionParser;
 
 class FileLoader
 {

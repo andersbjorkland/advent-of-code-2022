@@ -1,6 +1,6 @@
 <?php
 
-namespace Aoc\Parser;
+namespace Aoc5\Parser;
 
 interface ParseInterface
 {

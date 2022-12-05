@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Test;
+namespace Test5;
 
-use Aoc\StackReader;
+use Aoc5\StackReader;
 
 class StackReaderTest extends \PHPUnit\Framework\TestCase
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Test;
+namespace Test5;
 
-use Aoc\FileLoader;
-use Aoc\StackMover;
-use Aoc\StackReader;
+use Aoc5\FileLoader;
+use Aoc5\StackMover;
+use Aoc5\StackReader;
 
 class SubsetReadTest extends \PHPUnit\Framework\TestCase
 {

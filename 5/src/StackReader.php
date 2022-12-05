@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Aoc;
+namespace Aoc5;
 
 class StackReader
 {
