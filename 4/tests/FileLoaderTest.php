@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Test4;
 
-use Aoc\FileLoader;
-use Aoc\Section;
-use Aoc\SectionPair;
+use Aoc4\FileLoader;
+use Aoc4\Section;
+use Aoc4\SectionPair;
 
 class FileLoaderTest extends \PHPUnit\Framework\TestCase
 {

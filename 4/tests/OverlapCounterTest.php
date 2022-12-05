@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Test4;
 
-use Aoc\Section;
-use Aoc\SectionPair;
+use Aoc4\Section;
+use Aoc4\SectionPair;
 
 class OverlapCounterTest extends \PHPUnit\Framework\TestCase
 {
     public function testContainsCount(): void
     {
-        $overlapCounter = new \Aoc\OverlapCounter();
+        $overlapCounter = new \Aoc4\OverlapCounter();
         $sectionPairs = [
             (new SectionPair())
                 ->addSection(new Section(2, 4))
@@ -41,7 +41,7 @@ class OverlapCounterTest extends \PHPUnit\Framework\TestCase
 
     public function testOverlapCount(): void
     {
-        $overlapCounter = new \Aoc\OverlapCounter();
+        $overlapCounter = new \Aoc4\OverlapCounter();
         $sectionPairs = [
             (new SectionPair())
                 ->addSection(new Section(2, 4))

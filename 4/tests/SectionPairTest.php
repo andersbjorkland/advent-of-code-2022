@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Test4;
 
-use Aoc\Section;
-use Aoc\SectionPair;
+use Aoc4\Section;
+use Aoc4\SectionPair;
 use PHPUnit\Framework\TestCase;
 
 class SectionPairTest extends TestCase
