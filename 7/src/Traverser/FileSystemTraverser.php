@@ -45,4 +45,28 @@ class FileSystemTraverser
         
         return $totalSize;
     }
+
+    /**
+     * @param int $size
+     * @param Directory[] $directories
+     * @param Directory[] $filteredDirectories
+     * @return array
+     */
+    public function filterDirectoriesAtLeast(int $size, array $directories, array $filteredDirectories = []): array
+    {
+        $directoriesToHandle = [];
+        foreach ($directories as $directory) {
+            if ($directory->getTotalSize() >= $size) {
+                $filteredDirectories[] = $directory;
+                array_push($directoriesToHandle, ...$directory->getDirectories());
+            }
+
+        }
+
+        if (count($directoriesToHandle) === 0) {
+            return $filteredDirectories;
+        }
+
+        return $this->filterDirectoriesAtLeast($size, $directoriesToHandle, $filteredDirectories);
+    }
 }
