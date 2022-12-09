@@ -89,24 +89,46 @@ class Piece
     {
         $entangled = $this->entangled;
         
-        $moveForColumn = false;
-        $moveForRow = false;
+        if ($this->calculateDistance() > 1) {
+            $pieceX = $this->x;
+            $pieceY = $this->y;
+
+            $entangledX = $entangled->getX();
+            $entangledY = $entangled->getY();
+
+            // they are already at same column or row
+            $sameRow = $entangledY === $pieceY;
+            $sameColumn = $entangledX === $pieceX;
+            if ($sameColumn) {
+                $this->handleColumnMove($entangled);
+            } else if ($sameRow) {
+                $this->handleRowMove($entangled);
+            } else {
+                $this->handleDiagonalMove($entangled);
+            }
+            
+        }
+    }
+    
+    public function calculateDistance():int
+    {
+        $distance = 0;
         
         $pieceX = $this->x;
         $pieceY = $this->y;
         
-        $entangledX = $entangled->getX();
-        $entangledY = $entangled->getY();
+        $entangledX = $this->entangled->getX();
+        $entangledY = $this->entangled->getY();
         
-        // they are already at same column or row
-        $sameRow = $entangledY === $pieceY;
-        $sameColumn = $entangledX === $pieceX;
-        if ($sameColumn) {
-            $this->handleColumnMove($entangled);
-        }
+        $distance = max(
+            abs($entangledX - $pieceX),
+            abs($entangledY - $pieceY)
+        );
+        
+        return $distance;
     }
     
-    public function handleColumnMove(Piece $entangled): void
+    private function handleColumnMove(Piece $entangled): void
     {
         $pieceY = $this->y;
         $entangledY = $entangled->getY();
@@ -115,4 +137,41 @@ class Piece
         $entangled->move($move);
     }
     
+    private function handleRowMove(Piece $entangled): void
+    {
+        $pieceX = $this->x;
+        $entangledX = $entangled->getX();
+        $move = $pieceX - $entangledX > 0 ? Move::Right : Move::Left;
+        
+        $entangled->move($move);
+    }
+
+    private function handleDiagonalMove(?Piece $entangled): void
+    {
+        $xDiff = $this->x - $entangled->getX();
+        $yDiff = $this->y - $entangled->getY();
+
+        // if difference greater in x-way, then move into the same row and closer
+        //if (abs($xDiff) > abs($yDiff)) {
+            if ($yDiff > 0) {
+                $entangled->move(Move::Down);
+            } else {
+                $entangled->move(Move::Up);
+            }
+            
+            
+            // if entangled is less than piece, then move to the right
+            if ($xDiff > 0) {
+                $entangled->move(Move::Right);
+            } else {
+                $entangled->move(Move::Left);
+            }
+        //} else {
+            // else move into the same column and closer
+            
+        //}
+        
+        
+    }
+
 }
