@@ -15,10 +15,12 @@ D 1
 L 5
 R 2";
     
+    $fileContent = file_get_contents('input.txt');
+    
     $game = new \Aoc9\Game\Game(boardWidth: 6, boardHeight: 5);
     
     $instructionsParser = new \Aoc9\Parser\MovementParser();
-    $instructions = $instructionsParser->parse($exampleFileContents);
+    $instructions = $instructionsParser->parse($fileContent);
     
     foreach ($instructions as $instruction) {
         $times = $instruction['times'];
@@ -27,6 +29,11 @@ R 2";
             $game->progress($move);
         }
     }
+    
+    $tail = $game->getTail();
+
+    echo 'Tail visits: ' . $tail?->getVisitsByThreshold() . PHP_EOL;
+    echo 'Head visits: ' . $game->getHead()?->getVisitsByThreshold() . PHP_EOL;
     
 } catch (Exception $e) {
     echo $e->getMessage();

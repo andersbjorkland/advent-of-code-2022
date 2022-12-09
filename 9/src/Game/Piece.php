@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Aoc9\Game;
 
+use Test9\Game\PieceTest;
+
 class Piece
 {
+    private $visits = [];
+    
     public function __construct(
         private string $name,
         private int $x,
@@ -16,6 +20,8 @@ class Piece
         if ($this->entangled !== null) {
             $this->entangled->setEntangled($this);
         }
+        
+        $this->visits[$x] = [$y => 1];
     }
     
     public function getName(): string
@@ -106,7 +112,8 @@ class Piece
             } else {
                 $this->handleDiagonalMove($entangled);
             }
-            
+
+            $entangled->updateVisit();
         }
     }
     
@@ -150,27 +157,63 @@ class Piece
     {
         $xDiff = $this->x - $entangled->getX();
         $yDiff = $this->y - $entangled->getY();
-
-        // if difference greater in x-way, then move into the same row and closer
-        //if (abs($xDiff) > abs($yDiff)) {
-            if ($yDiff > 0) {
-                $entangled->move(Move::Down);
-            } else {
-                $entangled->move(Move::Up);
-            }
-            
-            
-            // if entangled is less than piece, then move to the right
-            if ($xDiff > 0) {
-                $entangled->move(Move::Right);
-            } else {
-                $entangled->move(Move::Left);
-            }
-        //} else {
-            // else move into the same column and closer
-            
-        //}
         
+        if ($yDiff > 0) {
+            $entangled->move(Move::Down);
+        } else {
+            $entangled->move(Move::Up);
+        }
+        
+        if ($xDiff > 0) {
+            $entangled->move(Move::Right);
+        } else {
+            $entangled->move(Move::Left);
+        }
+        
+    }
+    
+    public function getVisits(): array
+    {
+        return $this->visits;
+    }
+    
+    public function updateVisit(): void 
+    {
+        $x = $this->x;
+        $y = $this->y;
+
+        if (!key_exists($x, $this->visits)) {
+            $this->visits[$x] = [];
+        }
+        
+        if (!key_exists($y, $this->visits[$x])) {
+            $this->visits[$x][$y] = 0;
+        }
+
+        $this->visits[$x][$y] += 1;
+    }
+    
+    public function getVisitsByThreshold(int $threshold = 1): int
+    {
+        $sum = 0;
+        
+        foreach ($this->visits as $row) {
+            foreach ($row as $cell) {
+                if ($cell >= $threshold) {
+                    $sum++;
+                }
+            }
+        }
+        
+//        for ($x = 0; $x < count($this->visits); $x++) {
+//            for ($y = 0; $y < count($this->visits[$x]); $y++) {
+//                if ($this->visits[$x][$y] >= $threshold) {
+//                    $sum += 1;
+//                }
+//            }
+//        }
+        
+        return $sum;
         
     }
 

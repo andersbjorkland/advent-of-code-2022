@@ -18,14 +18,25 @@ class Game
         $this->head = $head ?? new \Aoc9\Game\Piece('H', $startX, $startY, \Aoc9\Game\PieceType::Head);
         $this->tail = $tail ?? new \Aoc9\Game\Piece('T', $startX, $startY, \Aoc9\Game\PieceType::Tail, entangled: $this->head);
         $this->board = $board ?? new \Aoc9\Game\Board(head: $this->head, tail: $this->tail, width: $boardWidth, height: $boardHeight);
+        $this->board->printBoard();
     }
     
     public function progress(Move $move): void
     {
-        $this->board->printBoard();
         $this->head->move($move);
+        $this->head->updateVisit();
         $this->head->handleEntangled();
-        $this->board->printBoard();
+        //$this->board->printBoard();
+    }
+    
+    public function getTail(): ?Piece
+    {
+        return $this->tail;
+    }
+    
+    public function getHead(): ?Piece
+    {
+        return $this->head;
     }
 
 }
