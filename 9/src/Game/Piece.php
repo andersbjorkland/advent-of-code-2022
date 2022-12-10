@@ -94,6 +94,9 @@ class Piece
     public function handleEntangled(): void
     {
         $entangled = $this->entangled;
+        if ($entangled === null) {
+            return;
+        }
         
         if ($this->calculateDistance() > 1) {
             $pieceX = $this->x;

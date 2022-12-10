@@ -17,7 +17,18 @@ R 2";
     
     $fileContent = file_get_contents('input.txt');
     
-    $game = new \Aoc9\Game\Game(boardWidth: 6, boardHeight: 5);
+    $startX = 0;
+    $startY = 4;
+    $bodyLength = 9;
+    
+    $head = new \Aoc9\Game\Piece('H', $startX, $startY, \Aoc9\Game\PieceType::Head);
+    $body = [];
+    for ($i = 0; $i < $bodyLength; $i++) {
+        $pieceName = $i + 1;
+        $body[] = new \Aoc9\Game\Piece('' . $pieceName, $startX, $startY, \Aoc9\Game\PieceType::Numbered);
+    }
+    
+    $game = new \Aoc9\Game\Game(head: $head, body: $body, boardWidth: 6, boardHeight: 5);
     
     $instructionsParser = new \Aoc9\Parser\MovementParser();
     $instructions = $instructionsParser->parse($fileContent);
@@ -30,7 +41,7 @@ R 2";
         }
     }
     
-    $tail = $game->getPieceByName('T');
+    $tail = $game->getPieceByName('9');
 
     echo 'Tail visits: ' . $tail?->getVisitsByThreshold() . PHP_EOL;
     echo 'Head visits: ' . $game->getHead()?->getVisitsByThreshold() . PHP_EOL;

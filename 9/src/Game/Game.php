@@ -37,6 +37,11 @@ class Game
         $this->head->move($move);
         $this->head->updateVisit();
         $this->head->handleEntangled();
+        
+        foreach ($this->body as $piece) {
+            $piece->handleEntangled();
+        }
+        
         //$this->board->printBoard();
     }
     
