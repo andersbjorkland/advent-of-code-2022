@@ -30,7 +30,7 @@ R 2";
         }
     }
     
-    $tail = $game->getTail();
+    $tail = $game->getPieceByName('T');
 
     echo 'Tail visits: ' . $tail?->getVisitsByThreshold() . PHP_EOL;
     echo 'Head visits: ' . $game->getHead()?->getVisitsByThreshold() . PHP_EOL;

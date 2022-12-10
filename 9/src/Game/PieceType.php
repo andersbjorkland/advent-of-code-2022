@@ -6,4 +6,5 @@ enum PieceType
 {
     case Head;
     case Tail;
+    case Numbered;
 }

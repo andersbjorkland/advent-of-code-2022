@@ -8,7 +8,7 @@ class Game
 {
     public function __construct(
         private ?Piece $head = null,
-        private ?Piece $tail = null,
+        private array $body = [],
         private ?Board $board = null,
         $boardWidth = 3,
         $boardHeight = 5,
@@ -16,8 +16,19 @@ class Game
         $startY = 4
     ){
         $this->head = $head ?? new \Aoc9\Game\Piece('H', $startX, $startY, \Aoc9\Game\PieceType::Head);
-        $this->tail = $tail ?? new \Aoc9\Game\Piece('T', $startX, $startY, \Aoc9\Game\PieceType::Tail, entangled: $this->head);
-        $this->board = $board ?? new \Aoc9\Game\Board(head: $this->head, tail: $this->tail, width: $boardWidth, height: $boardHeight);
+        
+        if (count($this->body) === 0) {
+           $this->body[] = new \Aoc9\Game\Piece('T', $startX, $startY, \Aoc9\Game\PieceType::Tail);
+        }
+        
+        $prev = $this->head;
+        foreach ($this->body as $piece) {
+            $prev->setEntangled($piece);
+            
+            $prev = $piece;
+        }
+        
+        $this->board = $board ?? new \Aoc9\Game\Board(rope: [$this->head, ...$this->body], width: $boardWidth, height: $boardHeight);
         $this->board->printBoard();
     }
     
@@ -29,9 +40,17 @@ class Game
         //$this->board->printBoard();
     }
     
-    public function getTail(): ?Piece
+    public function getPieceByName(string $name): ?Piece
     {
-        return $this->tail;
+        /** @var Piece $piece */
+        $filteredPieces = array_filter($this->body, fn($piece) => $piece->getName() === $name);
+        
+        $piece = null;
+        if (count($filteredPieces) > 0) {
+            $piece = array_pop($filteredPieces);
+        }
+        
+        return $piece;
     }
     
     public function getHead(): ?Piece
